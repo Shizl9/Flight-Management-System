@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "Flight Management System\\Models\\Aircraft.cs",
               "ToolTip": "C:\\Users\\sheik\\OneDrive\\Documents\\BAKEND\\Flight Management System\\Flight Management System\\Models\\Aircraft.cs",
               "RelativeToolTip": "Flight Management System\\Models\\Aircraft.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-23T11:25:29.071Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "Flight Management System\\Models\\Pilot.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-23T10:55:16.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-23T10:55:16.662Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Flight Management System\\Models\\Passenger.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-23T10:17:04.327Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-23T10:17:04.327Z"
             },
             {
               "$type": "Document",

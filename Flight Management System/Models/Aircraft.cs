@@ -9,8 +9,8 @@ namespace Flight_Management_System.Models
     public class Aircraft
     {
         public int aircraftId { get; set; } //syste generated 
-        public string model { get; set; } // input by Pilot
-        public string pilotPhone { get; set; }//input by Pilot
-        public string licenseNumber { get; set; }//input by Pilot
+        public string model { get; set; } // input when added in system
+        public int totalSeats { get; set; }//input by staff 
+        public bool isOperational { get; set; }//default set astrue is airworthy false if grounded for maintanance 
     }
 }
