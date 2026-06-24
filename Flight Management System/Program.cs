@@ -18,6 +18,8 @@ namespace Flight_Management_System
         //register passenger:
         public static void RegisterPassenger(List<Passenger> passengers)
         {
+            Console.WriteLine("\n=== Add New Passenger ===");
+
             Console.WriteLine("Enter passenger name:");
             string name = Console.ReadLine();
 
@@ -54,6 +56,8 @@ namespace Flight_Management_System
         //Add an Aircraft
         public static void AddanAircraft(List<Aircraft> aircrafts)
         {
+            Console.WriteLine("\n=== Add New Aircraft ===");
+
             Console.WriteLine("Enter model of Aircraft:");
             string model = Console.ReadLine();
 
@@ -71,12 +75,13 @@ namespace Flight_Management_System
                 totalSeats=totalSeats,
                 isOperational=true
             });
-
+            Console.WriteLine($"Aircraft added successfully. Assigned ID: {aicraftId}");
         }
 
         //Register a Pilot:
         public static void RegisterPilot(List<Pilot> pilots)
         {
+            Console.WriteLine("\n=== Add New Pilot ===");
             Console.WriteLine("Enter Pilot name:");
             string name = Console.ReadLine();
 
@@ -102,7 +107,110 @@ namespace Flight_Management_System
                 flightHours=flightHours,
                 isAvailable=true
             });
+
+            Console.WriteLine($"Pilot added successfully. Assigned ID: {pilotId}");
         }
+
+        //04 View All Flights
+        public static void  ViewAllFlights(List<Flight>flights)
+        {
+            Console.WriteLine("\n=== All Registered flights ===");
+            //if no flights found print:
+            if (context.flights.Count == 0)
+            {
+                Console.WriteLine(" No flights available. ");
+                return;
+            }
+            //view all flights:
+            foreach(Flight f in flights)
+            {
+                f.printFlight();
+            }
+        }
+
+        //add flight:
+        public static void ScheduleFlight(FlightContext context)
+        {
+
+
+            Console.WriteLine("\n=== Register New Flight ===");
+
+
+            Console.Write("Enter aircraft Id: ");
+            int aircraftId = int.Parse(Console.ReadLine());
+
+            //vaidation for aircaraft id:
+            Aircraft airplane = context.aircrafts.FirstOrDefault(a => a.aircraftId == aircraftId);
+            
+            if(airplane==null)
+            {
+                Console.WriteLine("aircraft not found.");
+                return;
+            }
+
+
+            //vaidation for pilot id:
+            Console.Write("Enter pilot Id: ");
+            int pilotId = int.Parse(Console.ReadLine());
+
+            Pilot pilot = context.pilots.FirstOrDefault(p => p.pilotId == pilotId);
+
+            if (pilot == null)
+            {
+                Console.WriteLine("No pilots found .");
+                return;
+            }
+
+            //user must input :
+            Console.Write("Enter Departure city: ");
+            string origin = Console.ReadLine();
+
+            Console.Write("Enter destination: ");
+            string destination = Console.ReadLine();
+
+            Console.Write("Enter Scheduled departure date: ");
+            string departureDate = Console.ReadLine();
+
+            Console.Write("Enter Scheduled departure time: ");
+            string departureTime = Console.ReadLine();
+
+            Console.Write("Enter flight Duration ");
+            int flightDuration = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Ticket Price: ");
+            decimal TicketPrice = decimal.Parse(Console.ReadLine());
+
+            //generate flite id:
+            int flightId = context.flights.Count + 1;
+
+            //generate flite code:
+            string flightCode = "OA-" + flightId;
+
+            
+
+            //add flight:
+            context.flights.Add(new Flight
+            {
+                flightId = flightId,
+                flightCode = flightCode,
+                aircraftId = aircraftId,
+                pilotId = pilotId,
+                origin = origin,
+                destination = destination,
+                departureDate = departureDate,
+                departureTime = departureTime,
+                flightDuration = flightDuration,
+                ticketPrice = TicketPrice,
+                availableSeats = airplane.totalSeats,
+                status = "Scheduled"//set as scheduled
+            });
+
+            Console.WriteLine(" flight added successfully with Id:" + flightId + "flight code:" + flightCode);
+
+        }
+
+
+
         static void Main(string[] args)
         {
             
@@ -116,7 +224,7 @@ namespace Flight_Management_System
                 Console.WriteLine("========================================");
                 Console.WriteLine(" 1  -Register Passenger");
                 Console.WriteLine(" 2  -Add Aircraft ");
-                Console.WriteLine(" 3  - ");
+                Console.WriteLine(" 3  -Register Pilot ");
                 Console.WriteLine(" 4  - ");
                 Console.WriteLine(" 5  - ");
                 Console.WriteLine(" 6  - ");
@@ -134,7 +242,7 @@ namespace Flight_Management_System
                 {
                     case 1: RegisterPassenger(context.passengers); break;
                     case 2: AddanAircraft(context.aircrafts); break;
-                    case 3:  break;
+                    case 3: RegisterPilot(context.pilots); break;
                     case 4:  break;
                     case 5:  break;
                     case 6:  break;
