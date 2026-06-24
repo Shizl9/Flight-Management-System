@@ -51,6 +51,29 @@ namespace Flight_Management_System
             Console.WriteLine(" passenger added successfuly with Id:"+ passengerId);
         }
 
+
+        //Add an Aircraft
+        public static void AddanAircraft(List<Aircraft> aircrafts)
+        {
+            Console.WriteLine("Enter model of Aircraft:");
+            string model = Console.ReadLine();
+
+            Console.WriteLine("Enter total seats:");
+            int totalSeats = int.Parse(Console.ReadLine());
+
+            // generate Aircraft Id:
+            int aicraftId = context.aircrafts.Count + 1;
+
+            //add aircraft:
+            context.aircrafts.Add(new Aircraft
+            {
+                model=model,
+                aircraftId=aicraftId,
+                totalSeats=totalSeats,
+                isOperational=true
+            });
+
+        }
         static void Main(string[] args)
         {
             
@@ -62,8 +85,8 @@ namespace Flight_Management_System
                 Console.WriteLine("\n========================================");
                 Console.WriteLine("   Flight Management System");
                 Console.WriteLine("========================================");
-                Console.WriteLine(" 1  - ");
-                Console.WriteLine(" 2  - ");
+                Console.WriteLine(" 1  -Register Passenger");
+                Console.WriteLine(" 2  -Add Aircraft ");
                 Console.WriteLine(" 3  - ");
                 Console.WriteLine(" 4  - ");
                 Console.WriteLine(" 5  - ");
@@ -80,8 +103,8 @@ namespace Flight_Management_System
 
                 switch (option)
                 {
-                    case 1:  break;
-                    case 2:  break;
+                    case 1: RegisterPassenger(context.passengers); break;
+                    case 2: AddanAircraft(context.aircrafts); break;
                     case 3:  break;
                     case 4:  break;
                     case 5:  break;
