@@ -51,7 +51,6 @@ namespace Flight_Management_System
             Console.WriteLine(" passenger added successfuly with Id:"+ passengerId);
         }
 
-
         //Add an Aircraft
         public static void AddanAircraft(List<Aircraft> aircrafts)
         {
@@ -73,6 +72,36 @@ namespace Flight_Management_System
                 isOperational=true
             });
 
+        }
+
+        //Register a Pilot:
+        public static void RegisterPilot(List<Pilot> pilots)
+        {
+            Console.WriteLine("Enter Pilot name:");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter Pilot phone number:");
+            string phoneNumber = Console.ReadLine();
+
+            Console.WriteLine("Enter license number:");
+            string licenseNumber = Console.ReadLine();
+
+            Console.WriteLine("Enter number of flight Hours:");
+            int flightHours = int.Parse(Console.ReadLine());
+
+            //generate passenger id:
+            int pilotId = context.pilots.Count + 1;
+
+            //add pilot:
+            context.pilots.Add(new Pilot
+            {
+                pilotId=pilotId,
+                pilotName=name,
+                pilotPhone=phoneNumber,
+                licenseNumber=licenseNumber,
+                flightHours=flightHours,
+                isAvailable=true
+            });
         }
         static void Main(string[] args)
         {

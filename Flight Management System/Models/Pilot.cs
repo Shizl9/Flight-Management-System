@@ -12,7 +12,7 @@ namespace Flight_Management_System.Models
         public string pilotName { get; set; } // input by Pilot
         public string pilotPhone { get; set; }//input by Pilot
         public string licenseNumber { get; set; }//input by Pilot
-        public int flightHours { get; set; }//calculated from every flights
+        public int flightHours { get; set; }//input by Pilot
         public bool isAvailable { get; set; }// default value set as true when pilot adedd.
     }
 }
