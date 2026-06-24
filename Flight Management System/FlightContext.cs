@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Flight_Management_System
 {
-    //adding system storage
+    
     public class FlightContext
     {
         public List <Passenger> passengers { get; set; }

@@ -16,6 +16,7 @@ namespace Flight_Management_System.Models
         public string destination { get; set; }// Arrival airport / city 
         public string departureDate { get; set; } // Scheduled departure date 
         public string departureTime { get; set; } // Scheduled departure time
+        public int flightDuration { get; set; } // calculated from pilot flight houers
         public decimal ticketPrice { get; set; }// Price per seat for this flight
         public int availableSeats { get; set; }//Number of seats still open for booking — decrements on booking
         public string status { get; set; }// Flight status: Scheduled | Departed | Cancelled

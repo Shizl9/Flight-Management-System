@@ -1,7 +1,56 @@
-﻿namespace Flight_Management_System
+﻿using Flight_Management_System.Models;
+using System.Numerics;
+
+namespace Flight_Management_System
 {
     public class Program
     {
+        // adding system storage
+        public static FlightContext context = new FlightContext
+        {
+            passengers = new List<Passenger>(),
+            pilots = new List<Pilot>(),
+            aircrafts = new List<Aircraft>(),
+            flights = new List<Flight>(),
+            bookings = new List<Booking>()
+        };
+
+        //register passenger:
+        public static void RegisterPassenger(List<Passenger> passengers)
+        {
+            Console.WriteLine("Enter passenger name:");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Enter Email:");
+            string Email= Console.ReadLine();
+
+            Console.WriteLine("Enter phone number:");
+            string phoneNumber= Console.ReadLine();
+
+            Console.WriteLine("Enter Passport number:");
+            string passportNumber= Console.ReadLine();
+
+            Console.WriteLine("Enter nationality:");
+            string nationality= Console.ReadLine();
+
+            //generate passenger id:
+            int passengerId = context.passengers.Count + 1;
+
+
+            //add passenger:
+            context.passengers.Add(new Passenger
+            {
+                passengerId=passengerId,
+                passengerName=name,
+                passengerEmail=Email,
+                passengerPhone=phoneNumber,
+                passportNumber=passportNumber,
+                nationality=nationality
+            });
+
+            Console.WriteLine(" passenger added successfuly with Id:"+ passengerId);
+        }
+
         static void Main(string[] args)
         {
             
@@ -11,7 +60,7 @@
             while (exit == false)
             {
                 Console.WriteLine("\n========================================");
-                Console.WriteLine("   Hospital Management System");
+                Console.WriteLine("   Flight Management System");
                 Console.WriteLine("========================================");
                 Console.WriteLine(" 1  - ");
                 Console.WriteLine(" 2  - ");
