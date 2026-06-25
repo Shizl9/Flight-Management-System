@@ -209,7 +209,84 @@ namespace Flight_Management_System
 
         }
 
+        //06 Book a Flight
+        public static void BookFlight(FlightContext context)
+        {
+            Console.Write("Enter passenger ID: ");
+            int passengerId = int.Parse(Console.ReadLine());
 
+            //validation for passenger id:
+            Passenger passenger = context.passengers.FirstOrDefault(p => p.passengerId == passengerId);
+            
+            if (passenger == null)
+            {
+                Console.WriteLine(" passenger Id not found.");
+                return;
+            }
+
+            //choose destination
+            Console.WriteLine("Enter destination:");
+            string destintation = Console.ReadLine();
+
+            //search destination
+             List<Flight> flight = context.flights.Where(f => f.destination == destintation && f.availableSeats > 0)
+                                                  .ToList();
+
+            //if there is no flights matched this destination print:
+            if (flight.Count == 0)
+            {
+                Console.WriteLine("No flights for ths destination");
+                return;
+            }
+
+            //print that flight 
+            Console.WriteLine($"\nAvailable Flights for this destination. {destintation}:");
+            flight.ForEach(s =>s.printFlight());
+
+            //create booking:
+            Console.WriteLine("Enter flight Id:");
+            int flightId = int.Parse(Console.ReadLine());
+
+            //validation for selected flight id :
+            Flight selectedflight = context.flights.FirstOrDefault(sf => sf.flightId == flightId);
+            
+            if (selectedflight == null)
+            {
+                Console.WriteLine("Not found flight.");
+                return;
+            }
+
+            //generate seat number:
+
+            int bookingId = context.bookings.Count + 1;
+            string seatNumber = bookingId + "A";
+
+            //determine total booking price:
+            decimal totalPrice = selectedflight.ticketPrice;
+
+            //update available seats decresed by 1:
+            int updatedseatnumber = selectedflight.availableSeats - 1;
+
+            //enter booking date:
+            Console.WriteLine("Enter booking date:");
+            string bookingDate = Console.ReadLine();
+
+            //confirm booking:
+
+            context.bookings.Add(new Booking
+            {
+                bookingId=bookingId,
+                passengerId=passengerId,
+                flightId=flightId,
+                seatNumber=seatNumber,
+                bookingDate=bookingDate,
+                totalPrice=totalPrice,
+                status="confirmed"
+            });
+
+            Console.WriteLine($"Flighit booked successfully! Flight ID: {flightId} , Booking Id: {bookingId}" +
+                              $" | Date: {bookingDate} | Seat Number: {seatNumber}");
+        }
 
         static void Main(string[] args)
         {
@@ -225,9 +302,9 @@ namespace Flight_Management_System
                 Console.WriteLine(" 1  -Register Passenger");
                 Console.WriteLine(" 2  -Add Aircraft ");
                 Console.WriteLine(" 3  -Register Pilot ");
-                Console.WriteLine(" 4  - ");
-                Console.WriteLine(" 5  - ");
-                Console.WriteLine(" 6  - ");
+                Console.WriteLine(" 4  -Schedule Flight ");
+                Console.WriteLine(" 5  -View All Flights ");
+                Console.WriteLine(" 6  -Book Flight ");
                 Console.WriteLine(" 7  - ");
                 Console.WriteLine(" 8  - ");
                 Console.WriteLine(" 9  - ");
@@ -243,9 +320,9 @@ namespace Flight_Management_System
                     case 1: RegisterPassenger(context.passengers); break;
                     case 2: AddanAircraft(context.aircrafts); break;
                     case 3: RegisterPilot(context.pilots); break;
-                    case 4:  break;
-                    case 5:  break;
-                    case 6:  break;
+                    case 4: ScheduleFlight(context); break;
+                    case 5: ViewAllFlights(context.flights); break;
+                    case 6: BookFlight(context); break;
                     case 7:  break;
                     case 8:  break;
                     case 9:  break;
