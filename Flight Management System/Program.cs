@@ -1,5 +1,6 @@
 ﻿using Flight_Management_System.Models;
 using System.Numerics;
+using System.Threading.Channels;
 
 namespace Flight_Management_System
 {
@@ -212,6 +213,9 @@ namespace Flight_Management_System
         //06 Book a Flight
         public static void BookFlight(FlightContext context)
         {
+            Console.WriteLine("\n=== Book Flight ===");
+
+
             Console.Write("Enter passenger ID: ");
             int passengerId = int.Parse(Console.ReadLine());
 
@@ -265,7 +269,7 @@ namespace Flight_Management_System
             decimal totalPrice = selectedflight.ticketPrice;
 
             //update available seats decresed by 1:
-            int updatedseatnumber = selectedflight.availableSeats - 1;
+            selectedflight.availableSeats = selectedflight.availableSeats - 1;
 
             //enter booking date:
             Console.WriteLine("Enter booking date:");
@@ -288,6 +292,42 @@ namespace Flight_Management_System
                               $" | Date: {bookingDate} | Seat Number: {seatNumber}");
         }
 
+        //07 Cancel a Booking
+        public static void CancelBooking(FlightContext context)
+        {
+            Console.WriteLine("\n=== Cancel an Booking ===");
+
+            Console.Write("Enter Booking ID to cancel: ");
+            int bookingId = int.Parse(Console.ReadLine());
+
+            //validation:
+            Booking booking = context.bookings.FirstOrDefault(b => b.bookingId == bookingId); 
+
+            if (booking == null)
+            {
+                Console.WriteLine(" Booking id not found.");
+                return;
+            }
+
+            //make sure that booking not cancelled
+            if (booking.status == "Cancelled")
+            {
+                Console.WriteLine("This booking is already cancelled.");
+                return;
+            }
+
+
+            //set booking as cancelled:
+            booking.status = "Cancelled";
+
+            // seat is returned to the flight
+            Flight flight = context.flights.FirstOrDefault(f => f.flightId == booking.flightId);
+            flight.availableSeats = flight.availableSeats + 1;
+
+
+            Console.WriteLine($"Booking {bookingId} has been cancelled and the flights is now available again.");
+        }
+
         static void Main(string[] args)
         {
             
@@ -305,7 +345,7 @@ namespace Flight_Management_System
                 Console.WriteLine(" 4  -Schedule Flight ");
                 Console.WriteLine(" 5  -View All Flights ");
                 Console.WriteLine(" 6  -Book Flight ");
-                Console.WriteLine(" 7  - ");
+                Console.WriteLine(" 7  -Cancel a Booking ");
                 Console.WriteLine(" 8  - ");
                 Console.WriteLine(" 9  - ");
                 Console.WriteLine(" 10 - ");
@@ -323,7 +363,7 @@ namespace Flight_Management_System
                     case 4: ScheduleFlight(context); break;
                     case 5: ViewAllFlights(context.flights); break;
                     case 6: BookFlight(context); break;
-                    case 7:  break;
+                    case 7: CancelBooking(context); break;
                     case 8:  break;
                     case 9:  break;
                     case 10: break;
