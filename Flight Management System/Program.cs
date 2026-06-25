@@ -328,6 +328,49 @@ namespace Flight_Management_System
             Console.WriteLine($"Booking {bookingId} has been cancelled and the flights is now available again.");
         }
 
+        //08 Depart a Flight
+        public static void DepartFlight(FlightContext context)
+        {
+            Console.WriteLine("\n=== Depart a Flight ===");
+
+            Console.Write("Enter Flight ID to cancel: ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            //validation 
+            Flight flight = context.flights.FirstOrDefault(f => f.flightId == flightId);
+
+            if (flight == null)
+            {
+                Console.WriteLine("not founded flight");
+                return;
+            }
+            // make sure that the flight is not departed
+            if (flight.status == "departed")
+            {
+                Console.WriteLine(" Flight is alrady departed ");
+                return;
+            }
+
+            //set flight as departed
+            flight.status = "departed";
+
+            //update flighthours of pilot:
+            Pilot pilot = context.pilots.FirstOrDefault(p => p.flightHours == p.flightHours);
+            pilot.flightHours = pilot.flightHours + flight.flightDuration;
+
+
+            //prevent any Bookings or Cancellations after departed flight:
+            if (flight.status =="departed")
+            {
+                Console.WriteLine("You cannot book this flight becase it's alrady departed.");
+                Console.WriteLine("You cannot Cancell a departed flight.");
+                return;
+            }
+
+            Console.WriteLine("The flight departed successfully.");
+        }
+
+
         static void Main(string[] args)
         {
             
