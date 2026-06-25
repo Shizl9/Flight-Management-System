@@ -370,6 +370,58 @@ namespace Flight_Management_System
             Console.WriteLine("The flight departed successfully.");
         }
 
+        // 09 Cancel a Flight:
+        public static void CancelFlight(FlightContext context)
+        {
+            Console.WriteLine("\n=== Cancel Flight ===");
+
+            //find flight:
+            Console.Write("Enter Flight ID : ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            //validation view if there is this flight
+           Flight flight = context.flights.FirstOrDefault(a => a.flightId == flightId);
+
+
+            //if flight not found print this:
+            if (flight == null)
+            {
+                Console.WriteLine("No flights founded.");
+                return;
+            }
+
+
+            //make sure that the flight not cancelled before
+            if (flight.status == "Cancelled")
+            {
+                Console.WriteLine("This flight already cancelled. ");
+                return;
+            }
+
+            //update to cancel flight
+            flight.status = "Cancelled";
+
+            //cancel all bookings confirmed for this flight:
+            List<Booking> AllConfirmedBookings = context.bookings.Where(a => a.flightId == flightId && a.status == "confirmed")
+                                                                 .ToList();
+            foreach(Booking booking in AllConfirmedBookings)
+            {
+                booking.status="cancelled";
+            }
+
+            //find pilot:
+            Console.WriteLine("Enter pilot id:");
+            int pilotId = int.Parse(Console.ReadLine());
+
+            //validation view pilot
+            List<Pilot> pilot = context.pilots.Where(p => p.pilotId == pilotId && p.isAvailable == false).ToList();
+
+            // number of affected bookings:
+            int affectedBookings = AllConfirmedBookings.Count;
+
+            Console.WriteLine("Flight cancelled , pilot is available now , number of affected bookings are:" + affectedBookings);
+            
+        }
 
         static void Main(string[] args)
         {
@@ -389,8 +441,8 @@ namespace Flight_Management_System
                 Console.WriteLine(" 5  -View All Flights ");
                 Console.WriteLine(" 6  -Book Flight ");
                 Console.WriteLine(" 7  -Cancel a Booking ");
-                Console.WriteLine(" 8  - ");
-                Console.WriteLine(" 9  - ");
+                Console.WriteLine(" 8  -Depart Flight ");
+                Console.WriteLine(" 9  -Cancel Flight ");
                 Console.WriteLine(" 10 - ");
                 Console.WriteLine(" 0  - Exit");
                 Console.WriteLine("========================================");
@@ -407,8 +459,8 @@ namespace Flight_Management_System
                     case 5: ViewAllFlights(context.flights); break;
                     case 6: BookFlight(context); break;
                     case 7: CancelBooking(context); break;
-                    case 8:  break;
-                    case 9:  break;
+                    case 8: DepartFlight(context); break;
+                    case 9: CancelFlight(context); break;
                     case 10: break;
                     case 0: exit = true; break;
                     default: Console.WriteLine("Invalid option. Please try again."); break;
