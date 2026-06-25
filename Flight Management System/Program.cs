@@ -423,6 +423,39 @@ namespace Flight_Management_System
             
         }
 
+        //10 Passenger Booking History
+        public static void PassengerBookingHistory(FlightContext context)
+        {
+            Console.WriteLine("\n=== Create Passenger Booking History ===");
+
+            Console.Write("Enter Passenger ID: ");
+            int passengerId = int.Parse(Console.ReadLine());
+
+            // Validate passenger
+            Passenger passenger = context.passengers.FirstOrDefault(p => p.passengerId == passengerId);
+
+            if (passenger == null)
+            {
+                Console.WriteLine("paseenger not found.");
+                return;
+            }
+
+            //view all bookings for this passenger:
+            List<Booking> booking = context.bookings.Where(b => b.passengerId == passengerId)
+                                                   .ToList();
+            
+            //if there is no bookings:
+            if (booking.Count == 0)
+            {
+                Console.WriteLine("No booking history found.");
+                return;
+            }
+
+
+
+
+        }
+
         static void Main(string[] args)
         {
             
