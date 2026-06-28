@@ -436,7 +436,7 @@ namespace Flight_Management_System
 
             if (passenger == null)
             {
-                Console.WriteLine("paseenger not found.");
+                Console.WriteLine("passenger not found.");
                 return;
             }
 
@@ -451,9 +451,34 @@ namespace Flight_Management_System
                 return;
             }
 
+            Console.Write("Enter Flight ID: ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            //validation 
+            Flight flight = context.flights.FirstOrDefault(f => f.flightId == flightId);
 
 
+            Console.Write("Enter booking ID: ");
+            int bookingId = int.Parse(Console.ReadLine());
 
+            //validation 
+            Booking bookId = context.bookings.FirstOrDefault(I => I.bookingId == bookingId);
+
+            decimal totalSpent = 0;
+            //view every booking info
+            foreach (Booking b in booking)
+            {
+                Console.WriteLine($" code: {flight.flightCode}, Origin:{flight.origin},Destination:{flight.destination},Departure Date: {flight.departureDate},Seat:{b.seatNumber}, paid price:{bookId.totalPrice},{b.status}");
+                Console.WriteLine("=====================================================");
+
+                //calculat paid price that status confirmed:
+                if (b.status == "confirmed")
+                {
+                     totalSpent = +b.totalPrice;
+                    Console.WriteLine(totalSpent);
+                }
+            }
+            Console.WriteLine($" total amount this passenger has spent is:{totalSpent}" );
         }
 
         static void Main(string[] args)

@@ -39,8 +39,7 @@
               "ViewState": "AgIAAA4AAAAAAAAAAAAwwAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-24T07:36:02.862Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -53,8 +52,7 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-25T04:17:20.79Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -67,8 +65,7 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-25T04:19:27.517Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -78,7 +75,7 @@
               "RelativeDocumentMoniker": "Flight Management System\\Program.cs",
               "ToolTip": "C:\\Users\\sheik\\OneDrive\\Documents\\BAKEND\\Flight Management System\\Flight Management System\\Program.cs",
               "RelativeToolTip": "Flight Management System\\Program.cs",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAswKkBAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAK4BAAAAAAAAAAAkwMUBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-23T10:13:32.903Z",
               "EditorCaption": ""
